@@ -40,7 +40,8 @@ public static class Strings
         foreach (object? item in input.ItemArray)
         {
             if (item == null) { continue; }
-            string s = item.ToString();
+            string? s = item.ToString();
+            if (s == null) { continue; }
             list.Add(s);
         }
 
@@ -99,10 +100,6 @@ public static class Strings
         if (input == null)
         {
             throw new ArgumentNullException(nameof(input));
-        }
-        if (splitter == null)
-        {
-            throw new ArgumentNullException(nameof(splitter));
         }
 
         int index = input.LastIndexOf(splitter) + 1;

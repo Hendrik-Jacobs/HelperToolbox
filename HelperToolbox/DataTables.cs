@@ -49,9 +49,9 @@ public static class DataTables
             DataRow row = table.NewRow();
             foreach (PropertyInfo info in propertyInfos)
             {
-                object? o = t.GetType()?
-                             .GetProperty(info.Name)?
-                             .GetValue(t);
+                object? o = t?.GetType()?
+                              .GetProperty(info.Name)?
+                              .GetValue(t);
 
                 row[info.Name] = o;
             }

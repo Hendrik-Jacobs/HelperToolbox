@@ -69,6 +69,8 @@ public static class Other
         }
 
         string json = item.ToJson();
-        return JsonConvert.DeserializeObject<T>(json);
+        T? t = JsonConvert.DeserializeObject<T>(json);
+        if (t == null) { throw new Exception("Deserialization failed."); }
+        return t;
     }
 }
