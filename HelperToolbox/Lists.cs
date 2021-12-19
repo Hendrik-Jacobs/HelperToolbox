@@ -96,4 +96,17 @@ public static class Lists
 
         return result;
     }
+
+    public static T[] RemoveAt<T>(this T[] input, int index)
+    {
+        if (input == null) { throw new ArgumentNullException(nameof(input)); }
+        if (index < 0) { return input; }
+        if (index >= input.Length) { return input; }
+
+        T[] a = input[..index];
+        index++;
+        T[] b = input[index..];
+
+        return a.Concat(b).ToArray();
+    }
 }

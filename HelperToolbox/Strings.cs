@@ -1,13 +1,21 @@
 ﻿using System.Data;
 using System.Text;
+using System.Linq;
 
 namespace HelperToolbox;
 public static class Strings
 {
-    public static bool IsAllLetters(this string value, bool defauLt = false)
+    public static bool IsAllLetters(this string value, bool defaultValue = false)
     {
-        if (string.IsNullOrEmpty(value)) { return defauLt; }
-        return value.Any(c => !char.IsLetter(c));
+        if (string.IsNullOrEmpty(value)) { return defaultValue; }
+        return !value.Any(c => !char.IsLetter(c));
+    }
+
+    public static bool IsAllLettersOrWhiteSpace(this string value, bool defaultValue = false)
+    {
+        if (string.IsNullOrEmpty(value)) { return defaultValue; }
+        char[] chars = { '\n', '\r', '\t', ' ' };
+        return !value.Any(c => !char.IsLetter(c) && !chars.Contains(c));
     }
 
     public static string ToTitleCase(this string text)
@@ -18,19 +26,6 @@ public static class Strings
         System.Globalization.TextInfo textInfo = cultureInfo.TextInfo;
 
         return textInfo.ToTitleCase(text.ToLower());
-    }
-
-    public static string[] Remove(this string[] input, int index)
-    {
-        if (input == null) { return Array.Empty<string>(); }
-        if (index < 0) { return input; }
-        if (index >= input.Length) { return input; }
-
-        string[] a = input[..index];
-        index++;
-        string[] b = input[index..];
-
-        return a.Concat(b).ToArray();
     }
 
     public static string ToCsv(this DataRow input, string seperator = ",")
@@ -99,7 +94,7 @@ public static class Strings
         return result;
     }
 
-    public static string SplitAndGetLast(string input, char splitter)
+    public static string SplitAndGetLast(this string input, char splitter)
     {
         if (input == null)
         {
