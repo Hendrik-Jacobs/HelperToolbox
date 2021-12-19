@@ -44,12 +44,12 @@ public static class Other
 
         foreach (PropertyInfo info in propertyInfos)
         {
-            object? o = item1.GetType()
-                             .GetProperty(info.Name)
+            object? o = item1.GetType()?
+                             .GetProperty(info.Name)?
                              .GetValue(item1);
 
-            object? p = item2.GetType()
-                             .GetProperty(info.Name)
+            object? p = item2.GetType()?
+                             .GetProperty(info.Name)?
                              .GetValue(item2);
 
             if (o == null && p == null) { continue; }
@@ -59,5 +59,16 @@ public static class Other
         }
 
         return true;
+    }
+
+    public static T DeepCopy<T>(this T item)
+    {
+        if (item == null)
+        {
+            throw new ArgumentNullException(nameof(item));
+        }
+
+        string json = item.ToJson();
+        return JsonConvert.DeserializeObject<T>(json);
     }
 }
