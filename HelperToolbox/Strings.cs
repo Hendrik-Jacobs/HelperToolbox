@@ -108,4 +108,19 @@ public static class Strings
         if (index == input.Length) { return ""; }
         return input[index..];
     }
+
+    public static bool HasNoSpecialCharacters(this string name)
+    {
+        foreach (char c in name)
+        {
+            if (char.IsLetter(c) == false &&
+                char.IsDigit(c) == false &&
+                c != '_')
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

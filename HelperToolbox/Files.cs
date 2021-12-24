@@ -68,4 +68,35 @@ public static class Files
 
         return file.DirectoryName;
     }
+
+    public static bool IsFileLocked(this string path)
+    {
+        FileInfo file = new(path);
+        return file.IsLocked();
+    }
+
+    public static bool IsFileNotLocked(this string path)
+    {
+        FileInfo file = new(path);
+        return !file.IsLocked();
+    }
+
+    public static bool IsNotLocked(this FileInfo file)
+    {
+        return !file.IsLocked();
+    }
+
+    public static bool IsLocked(this FileInfo file)
+    {
+        try
+        {
+            using FileStream stream = file.Open(FileMode.Open, FileAccess.Read, FileShare.None);
+            stream.Close();
+        }
+        catch
+        {
+            return true;
+        }
+        return false;
+    }
 }
