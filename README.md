@@ -10,14 +10,38 @@ Many ideas from this thread on stackoverflow:
 
 
 
+## New in version 1.0.2
+```csharp
+// Methods
+bool IsValidMail(this string mail)
+Grid GetGrid(int rows, int columns, string name = "")
+IsFileLocked(this string path)
+IsFileNotLocked(this string path)
+bool AllLettersDigitsOrUnderScores(this string value)
+bool ToBool(this int value)
+
+// Overload
+int ToInt(this bool value)
+int Seconds(this double milliseconds)
+int Minutes(this double milliseconds)
+```
+
+
 ## Methods
 
 ## DateTime
 
-### ```csharp int Seconds(this int milliseconds)``` and ```csharpint Minutes(this int milliseconds)```
+### int Seconds(this int milliseconds) and int Minutes(this int milliseconds)
 #### Description
 These two methods are made to use them with methods like Task.Delay() and convert milliseconds in seconds or minutes. 
 This makes it more readable.
+
+#### Overloads
+```csharp
+int Seconds(this double milliseconds) 
+int Minutes(this double milliseconds)
+```
+
 
 #### Example
 ```csharp
@@ -29,7 +53,7 @@ Task.Delay(38.Seconds()).Wait();
 
 ## DataTables
 
-### ```csharp static DataTable CreateDataTable(this IEnumerable<string> columns, string name = "")```
+### static DataTable CreateDataTable(this IEnumerable<string> columns, string name = "")
 #### Description
 Creates an empty DataTable with columns.
 
@@ -41,7 +65,7 @@ DataTable dt = HelperToolBox.CreateDataTable(name, columns);
 ```
 
 
-### ```csharp DataTable ToDataTable<T>(this IEnumerable<T> items, string name = "")```
+### DataTable ToDataTable<T>(this IEnumerable<T> items, string name = "")
 
 #### Description
 This method searches for all properties of a class of type T and creates a DataTable with a column for each property. 
@@ -60,7 +84,7 @@ DataTable dt = list.ToDataTable("TestTable");
 
 ## Files
 
-### ```csharp bool FileNotExists(this string path)```
+### bool FileNotExists(this string path)
 #### Description
 Inverted version of ```csharp File.Exists()```.
 
@@ -74,7 +98,7 @@ if (path.FileNotExists())
 ```
 
 
-### ```csharp void DeleteFileIfExists(this string path)```
+### void DeleteFileIfExists(this string path)
 #### Description
 Checks if a file exists and delete it if it exists.
 
@@ -85,7 +109,7 @@ path.DeleteFileIfExists();
 ```
 
 
-### ```csharp bool DirectoryNotExists(this string path)```
+### bool DirectoryNotExists(this string path)
 #### Description
 Inverted version of ```csharp Directory.Exists()```.
 
@@ -99,7 +123,7 @@ if (path.DirectoryNotExists())
 ```
 
 
-### ```csharp void CreateDirectoryIfNotExists(this string path)```
+### void CreateDirectoryIfNotExists(this string path)
 #### Description
 Checks if a directory exists and creates it, if not.
 
@@ -110,7 +134,7 @@ path.CreateDirectoryIfNotExists();
 ```
 
 
-### ```csharp string GetFileName(this string path)```
+### string GetFileName(this string path)
 #### Description
 Returns only the filename of a path.
 
@@ -120,22 +144,47 @@ string path = "SomePath";
 string fileName = path.GetFileName();
 ```
 
+    
+    
 
-### ```csharp string GetDirectoryName(this string path)```
+### string GetDirectoryName(this string path)
 #### Description
 Returns only the directoryname of a path.
 
 #### Example
 ```csharp
-
 string path = "SomePath";
 string fileName = path.GetDirectoryName();
 ```
 
+    
+    
+    
+
+### bool IsFileLocked(this string path) and bool IsFileNotLocked(this string path)
+#### Description
+Checks if a file is in use by an other process (or not).
+   
+#### Overloads
+```csharp
+public static bool IsFileLocked(this FileInfo file)
+public static bool IsFileNotLocked(this FileInfo file)
+```    
+
+#### Example
+```csharp
+string path = "SomePath";
+Console.WriteLine(path.IsFileLocked());
+```
+    
+    
+    
+    
+
 
 ## Lists
 
-### ```csharp IEnumerable<(int, T)> Enumerate<T>(this IEnumerable<T> input, int start = 0, int interval = 1)```
+### IEnumerable<(int, T)> Enumerate<T>(this IEnumerable<T> input, int start = 0, int interval = 1)
 #### Description
 This method is made to use it in a foreach loop. It returns the items of input combined with an index as tuple.
 You can define the start index and an interval.
@@ -159,7 +208,7 @@ foreach ((int i, string s) in list.Enumerate(0))
 
 
 
-### ```csharp IEnumerable<(T, F)> Cross<T, F>(this IEnumerable<T> input1, IEnumerable<F> input2)```
+### IEnumerable<(T, F)> Cross<T, F>(this IEnumerable<T> input1, IEnumerable<F> input2)
 #### Description
 This method is made to use it in a foreach loop. It returns every possible combination of items from the inputs as tuple.
 
@@ -186,7 +235,7 @@ foreach ((int i, string s) in list2.Cross(list))
 
 
 
-### ```csharp ObservableCollection<T> AddRange<T>(this ObservableCollection<T> list, IEnumerable<T> input)```
+### ObservableCollection<T> AddRange<T>(this ObservableCollection<T> list, IEnumerable<T> input)
 #### Description
 The AddRange function for ObserableCollections. Adds all items of an IEnumerable to an ObservableCollection.
 
@@ -213,7 +262,7 @@ foreach (string s in list)
 
 
 
-### ```csharp IEnumerable<T> EmptyIfNull<T>(this IEnumerable<T> input)```
+### IEnumerable<T> EmptyIfNull<T>(this IEnumerable<T> input)
 #### Description
 Returns an empty list if the input is null, else it returns the input.
 
@@ -231,7 +280,7 @@ Method(null);
 
 
 
-### ```csharp List<T> Foreach<T>(this IEnumerable<T> source, Func<T, T> action)```
+### List<T> Foreach<T>(this IEnumerable<T> source, Func<T, T> action)
 #### Description
 Performs an action on each item of the source.
 
@@ -258,7 +307,7 @@ foreach (string s in list)
 
 
 
-### ```csharp T[] RemoveAt<T>(this T[] input, int index)```
+### T[] RemoveAt<T>(this T[] input, int index)
 #### Description
 Removes an item from an array by index.
 
@@ -277,13 +326,49 @@ foreach (char c in chars)
 // a
 // c
 ```
+    
+    
+    
+    
+    
+## Mails
+    
+### bool IsValidMail(this string mail)
+#### Description
+Checks if a string is a valid E-mail address.
+
+#### Example
+```csharp
+Console.WriteLine("".IsValidMail());
+Console.WriteLine("t".IsValidMail());
+Console.WriteLine("test".IsValidMail());
+Console.WriteLine("test@test".IsValidMail());
+Console.WriteLine("test@test.com".IsValidMail());
+Console.WriteLine("test@test.co.uk".IsValidMail());
+Console.WriteLine("te-st@test.co.uk".IsValidMail());
+Console.WriteLine("te--st@test.co.uk".IsValidMail());
+Console.WriteLine(".test@test.co.uk".IsValidMail());
+Console.WriteLine("te@st@test.co.uk".IsValidMail());
+
+// Output: 
+// False
+// False
+// False
+// False
+// True
+// True
+// True
+// False
+// False
+// False
+```
 
 
 
 
 ## Numbers
 
-### ```csharp bool IsInt(this string value, bool defaultValue = false)```
+### bool IsInt(this string value, bool defaultValue = false)
 #### Description
 Checks if a string is a valid Int32.
 
@@ -302,7 +387,7 @@ Console.WriteLine("j".IsInt());
 
 
 
-### ```csharp bool IsPositivInt(this string value, bool defaultValue = false)```
+### bool IsPositivInt(this string value, bool defaultValue = false)
 #### Description
 Checks if a string is a valid Int32 >= 0.
 
@@ -321,7 +406,7 @@ Console.WriteLine("j".IsPositivInt());
 
 
 
-### ```csharp bool IsNegativInt(this string value, bool defaultValue = false)```
+### bool IsNegativInt(this string value, bool defaultValue = false)
 #### Description
 Checks if a string is a valid Int32 < 0.
 
@@ -340,7 +425,7 @@ Console.WriteLine("j".IsNegativInt());
 
 
 
-### ```csharp bool IsDouble(this string value, bool defaultValue = false)```
+### bool IsDouble(this string value, bool defaultValue = false)
 #### Description
 Checks if a string is a valid double.
 
@@ -359,7 +444,7 @@ Console.WriteLine("j".IsDouble());
 
 
 
-### ```csharp bool IsPositivDouble(this string value, bool defaultValue = false)```
+### bool IsPositivDouble(this string value, bool defaultValue = false)
 #### Description
 Checks if a string is a valid double >= 0.
 
@@ -378,7 +463,7 @@ Console.WriteLine("j".IsPositivDouble());
 
 
 
-### ```csharp bool IsNegativDouble(this string value, bool defaultValue = false)```
+### bool IsNegativDouble(this string value, bool defaultValue = false)
 #### Description
 Checks if a string is a valid double < 0.
 
@@ -397,7 +482,7 @@ Console.WriteLine("j".IsNegativDouble());
 
 
 
-### ```csharp int ToInt(this string value, int defaultValue = 0)```
+### int ToInt(this string value, int defaultValue = 0)
 #### Description
 Converts a string to an int if possible or returns the default value.
 
@@ -409,7 +494,36 @@ int x = "5".ToInt();
 
 
 
-### ```csharp ToDouble(this string value, double defaultValue = 0)```
+### ToInt(this bool value)
+#### Description
+Converts a bool to an int. 'true' is 1, 'false' is 0.
+
+#### Example
+```csharp
+int x = true.ToInt();
+```
+
+
+
+
+### ToBool(this int value)
+#### Description
+Converts a number to a bool. Everything bigger than 0 is 'True', everything else is 'False'.
+
+#### Overloads
+```csharp
+ToBool(this double value)
+```
+                                         
+#### Example
+```csharp
+int x = true.ToInt();
+```
+
+
+
+
+### ToDouble(this string value, double defaultValue = 0)
 #### Description
 Converts a string to an double if possible or returns the default value.
 
@@ -424,7 +538,7 @@ double x = "5.8".ToDouble();
 ## Strings
 
 
-### ```csharp bool IsAllLetters(this string value, bool defaultValue = false)```
+### bool IsAllLetters(this string value, bool defaultValue = false)
 #### Description
 Checks if all chars of a string are letters.
 
@@ -447,7 +561,7 @@ Console.WriteLine(s3.IsAllLetters());
 
 
 
-### ```csharp bool IsAllLettersOrWhiteSpace(this string value, bool defaultValue = false)```
+### bool IsAllLettersOrWhiteSpace(this string value, bool defaultValue = false)
 #### Description
 Checks if all chars of a string are letters or white space.
 
@@ -466,11 +580,32 @@ Console.WriteLine(s3.IsAllLettersOrWhiteSpace());
 // True
 // False
 ```
+                                         
+                  
+                                         
+                                         
+
+### bool AllLettersDigitsOrUnderScores(this string value)
+#### Description
+Checks if all chars of a string are letters, digits or underscores.
+
+#### Example
+```csharp
+string s = "Helloworld";
+string s2 = "Hello world!";
+Console.WriteLine(s.AllLettersDigitsOrUnderScores());
+Console.WriteLine(s2.AllLettersDigitsOrUnderScores());
+                                         
+// Output:
+// True
+// False
+```                                         
+                                         
 
 
 
 
-### ```csharp string ToTitleCase(this string text)```
+### string ToTitleCase(this string text)
 #### Description
 Converts a string depending on ```csharp Thread.CurrentThread.CurrentCulture```.
 
@@ -486,7 +621,7 @@ Console.WriteLine(s.ToTitleCase());
 
 
 
-### ```csharp string ToCsv<T>(this IEnumerable<T> input, string seperator = ",")```
+### string ToCsv<T>(this IEnumerable<T> input, string seperator = ",")
 #### Description
 Adds all elements of list or DataRow to a string (one line). If you run it on a DataTable it returns a string with a line for each DataRow.
 
@@ -530,7 +665,7 @@ Console.WriteLine(dt.ToCsv(", "));
 
 
 
-### ```csharp string SplitAndGetLast(string input, char splitter)```
+### string SplitAndGetLast(string input, char splitter)
 #### Description
 Returns a part of the input string behind the last usage of the char splitter.
 
@@ -548,7 +683,7 @@ Console.WriteLine(s.SplitAndGetLast('-'));
 
 ## UI
 
-### ```csharp void MakeVisible(this UIElement element)```
+### void MakeVisible(this UIElement element)
 #### Description
 Make a WPF UIElement visible.
 
@@ -560,7 +695,7 @@ textBox.MakeVisible();
 
 
 
-### ```csharp MakeCollapsed(this UIElement element)```
+### void MakeCollapsed(this UIElement element)
 #### Description
 Collapse a WPF UIElement.
 
@@ -568,13 +703,25 @@ Collapse a WPF UIElement.
 ```csharp
 textBox.MakeCollapsed();
 ```
+    
+
+
+
+### Grid GetGrid(int rows, int columns, string name = "")
+#### Description
+Creates an emty WPF-Grid with rows and columns. All Width and Height properties of are set to 'auto'.
+
+#### Example
+```csharp
+Grid grid = HelperToolbox.UI.GetGrid(5, 5, "MainGrid");
+```
 
 
 
 
 ## Other
 
-### ```csharp string ToJson<T>(this T instance)```
+### string ToJson<T>(this T instance)
 #### Description
 Converts an object to json. Returns an empty string if the input is null.
 
@@ -590,7 +737,7 @@ Console.WriteLine(test.ToJson());
 
 
 
-### ```csharp bool Between<T>(this T actual, T lower, T upper) where T : IComparable<T>```
+### bool Between<T>(this T actual, T lower, T upper) where T : IComparable<T>
 #### Description
 Checks if a value is between two other values. Can be used for numbers and DateTimes.
 
@@ -607,7 +754,7 @@ Console.WriteLine(5.Between(6, 8));
 
 
 
-### ```csharp T With<T>(this T obj, Action<T> act)```
+### T With<T>(this T obj, Action<T> act)
 #### Description
 Performs an action on an object. useful to create a copy of an object with some values changed.
 
@@ -632,7 +779,7 @@ Console.WriteLine($"{item2.ID} {item2.Name} {item2.Description}");
 
 
 
-### ```csharp bool PropertiesEqauls<T>(this T item1, T item2)```
+### bool PropertiesEqauls<T>(this T item1, T item2)
 #### Description
 Checks if the values of all properties of an object are equal.
 
@@ -654,7 +801,7 @@ Console.WriteLine(item1.PropertiesEqauls(item2));
 
 
 
-### ```csharp T DeepCopy<T>(this T item)```
+### T DeepCopy<T>(this T item)
 #### Description
 Creates a copy of an object by serializing it to json an deserializing it back. This makes shure there are no references between the new and the old object. 
 Don't work for every object
