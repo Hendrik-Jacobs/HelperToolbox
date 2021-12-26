@@ -64,6 +64,11 @@ public static class Numbers
         return value > 0;
     }
 
+    public static bool ToBool(this double value)
+    {
+        return value > 0;
+    }
+
     public static int ToInt(this bool value)
     {
         return value ? 1 : 0;

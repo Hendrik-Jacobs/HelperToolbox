@@ -22,7 +22,7 @@ public static class UI
 
         if (string.IsNullOrEmpty(name) == false)
         {
-            if (name.HasNoSpecialCharacters() == false)
+            if (name.AllLettersDigitsOrUnderScores() == false)
             {
                 throw new ArgumentException(null, nameof(name));
             }

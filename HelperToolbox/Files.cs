@@ -72,21 +72,21 @@ public static class Files
     public static bool IsFileLocked(this string path)
     {
         FileInfo file = new(path);
-        return file.IsLocked();
+        return file.IsFileLocked();
     }
 
     public static bool IsFileNotLocked(this string path)
     {
         FileInfo file = new(path);
-        return !file.IsLocked();
+        return !file.IsFileLocked();
     }
 
-    public static bool IsNotLocked(this FileInfo file)
+    public static bool IsFileNotLocked(this FileInfo file)
     {
-        return !file.IsLocked();
+        return !file.IsFileLocked();
     }
 
-    public static bool IsLocked(this FileInfo file)
+    public static bool IsFileLocked(this FileInfo file)
     {
         try
         {

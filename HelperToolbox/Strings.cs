@@ -109,9 +109,9 @@ public static class Strings
         return input[index..];
     }
 
-    public static bool HasNoSpecialCharacters(this string name)
+    public static bool AllLettersDigitsOrUnderScores(this string value)
     {
-        foreach (char c in name)
+        foreach (char c in value)
         {
             if (char.IsLetter(c) == false &&
                 char.IsDigit(c) == false &&
