@@ -20,7 +20,7 @@ IsFileNotLocked(this string path)
 bool AllLettersDigitsOrUnderScores(this string value)
 bool ToBool(this int value)
 
-// Overload
+// Overloads
 int ToInt(this bool value)
 int Seconds(this double milliseconds)
 int Minutes(this double milliseconds)
