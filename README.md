@@ -5,6 +5,8 @@
 This library is a collection of useful methods (mostly extension methods).
 In the documentation below you find a description and examples for all methods.
 
+Package: <href>https://www.nuget.org/packages/HelperToolbox/</href>
+
 Many ideas from this thread on stackoverflow:
 <href>https://stackoverflow.com/questions/271398/what-are-your-favorite-extension-methods-for-c-codeplex-com-extensionoverflow</href>
 
